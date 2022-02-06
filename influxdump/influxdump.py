@@ -86,7 +86,7 @@ def main(src, dst):
     d = s.date()
     while d < e.date():
         print(d)
-        q = "SELECT * FROM \"{:s}\" WHERE '{:s}' <= time AND time < '{:s}'".format(src['measurement'], d.isoformat(), (d + datetime.timedelta(days=1)).isoformat())
+        q = "SELECT *::field FROM \"{:s}\" WHERE '{:s}' <= time AND time < '{:s}' GROUP BY *".format(src['measurement'], d.isoformat(), (d + datetime.timedelta(days=1)).isoformat())
         rs = influxdb_src.query(q)
         points = rs2points(rs)
 
